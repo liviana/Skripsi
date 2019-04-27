@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Muhamad Junaedi
+ * @author Liviana
  */
 public class Anggota_Controller {
     TampilAnggota tampil;
