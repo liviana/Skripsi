@@ -46,6 +46,28 @@ public class DPinjaman_Controller {
             e.printStackTrace();
         }
     }
+    public void editData(String NoAnggota){
+        model=new Model();
+        String sql = model.cariAnggota(NoAnggota);
+        try {
+            java.sql.Statement st = conn.createStatement();
+            ResultSet rss= st.executeQuery(sql);
+            if (rss.next()) {
+                pinjam.tfNoAnggota.setText("no_anggota");
+                pinjam.tfNmAnggota.setText("nm_anggota");
+                pinjam.tfTotalPinjam.setText("total_pinjam");
+                pinjam.tfAngsuran.setText("angsuran");
+                pinjam.tfAngsurKe.setText("angsuran_ke");
+                pinjam.tfTenor.setText("tenor");
+                pinjam.tfSisa.setText("sisa_angsur");
+            }else{
+                JOptionPane.showMessageDialog(null,"Nomor Anggota Tidak Ditemukan");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void CheckNomor(){
         model=new Model();
         String nama = pinjam.tfNmAnggota.getText().toString();
