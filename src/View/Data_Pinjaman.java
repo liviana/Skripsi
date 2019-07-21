@@ -14,12 +14,20 @@ import Controller.DPinjaman_Controller;
 public class Data_Pinjaman extends javax.swing.JFrame {
 
     DPinjaman_Controller cbt;
+    String id="0";
     /**
      * Creates new form Data_Pinjaman
      */
     public Data_Pinjaman() {
         initComponents();
         cbt=new DPinjaman_Controller(this);
+    }
+    
+    public Data_Pinjaman(String id) {
+        initComponents();
+        cbt=new DPinjaman_Controller(this);
+        cbt.editData(id);
+        this.id=id;
     }
 
     /**
@@ -95,6 +103,11 @@ public class Data_Pinjaman extends javax.swing.JFrame {
         tfAngsurKe.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfAngsurKeFocusLost(evt);
+            }
+        });
+        tfAngsurKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfAngsurKeActionPerformed(evt);
             }
         });
 
@@ -263,12 +276,16 @@ public class Data_Pinjaman extends javax.swing.JFrame {
     }//GEN-LAST:event_tfSisaActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        cbt.simpan();
+        cbt.Input(Integer.parseInt(id));
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         cbt.kembali();
     }//GEN-LAST:event_btnKembaliActionPerformed
+
+    private void tfAngsurKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAngsurKeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfAngsurKeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,7 +324,7 @@ public class Data_Pinjaman extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKembali;
-    private javax.swing.JButton btnSimpan;
+    public javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
