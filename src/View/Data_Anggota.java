@@ -6,6 +6,7 @@
 package View;
 
 import Controller.DAnggota_Controller;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +14,7 @@ import Controller.DAnggota_Controller;
  */
 public class Data_Anggota extends javax.swing.JFrame {
     DAnggota_Controller cbt;
+    String id;
     /**
      * Creates new form Data_Anggota
      */
@@ -20,6 +22,25 @@ public class Data_Anggota extends javax.swing.JFrame {
         initComponents();
         cbt=new DAnggota_Controller(this);
     }
+
+    public Data_Anggota(String id) {
+        initComponents();
+        this.id=id;
+        cbt=new DAnggota_Controller(this);
+        cbt.getDataEdit(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -243,7 +264,7 @@ public class Data_Anggota extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKembaliActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        cbt.checkAnggota();
+        cbt.checkAnggota(Integer.parseInt(id));
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
@@ -284,7 +305,7 @@ public class Data_Anggota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.ButtonGroup JKGroup;
     private javax.swing.JButton btnKembali;
-    private javax.swing.JButton btnSimpan;
+    public javax.swing.JButton btnSimpan;
     public javax.swing.JComboBox<String> cbBulan;
     public javax.swing.JComboBox<String> cbTahun;
     public javax.swing.JComboBox<String> cbTanggal;
