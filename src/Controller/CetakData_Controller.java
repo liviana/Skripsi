@@ -59,8 +59,14 @@ public class CetakData_Controller {
             case "Laporan Data Anggota":
                 DataAnggota();
                 break;
-            default:
+            case "Laporan Data Simpan":
                 DataSimpan();
+                break;    
+            case "Laporan Data Pinjaman":
+                DataPinjam();
+                break;    
+            default:
+                DataKoperasi();
                 break;
         }
             
@@ -72,14 +78,19 @@ public class CetakData_Controller {
     //Cetak
     private void DataAnggota(){
         model=new Model();
+        Models models = new Models();
         try {
             java.sql.Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(model.tableAnggota());
-            JasperPrint jasperPrint;       
+            JasperPrint jasperPrint;
+            HashMap hash = new HashMap();
+            hash.put("d_dari",dari());
+            hash.put("d_sampai",sampai());
+            hash.put("tgl_sekarang",models.getToday());
             JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);
             String filename= System.getProperty("user.dir")+"/src/iReport/CetakAnggota.jrxml";            
             JasperReport jasperReport = JasperCompileManager.compileReport(filename);
-            jasperPrint = JasperFillManager.fillReport(jasperReport,null, jrRS);
+            jasperPrint = JasperFillManager.fillReport(jasperReport,hash, jrRS);
             JRViewer aViewer = new JRViewer(jasperPrint);                  
             JDialog viewer = new JDialog(); 	
             viewer.setTitle(".: Data Anggota :.");             
@@ -94,15 +105,69 @@ public class CetakData_Controller {
     }
     private void DataSimpan(){
         model=new Model();
+        Models models = new Models();
         try {
             java.sql.Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(model.cetakSimpan(dari(),sampai()));
             HashMap hash = new HashMap();
             hash.put("d_dari",dari());
             hash.put("d_sampai",sampai());
+            hash.put("tgl_sekarang",models.getToday());
             JasperPrint jasperPrint;       
             JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);
             String filename= System.getProperty("user.dir")+"/src/iReport/CetakDataSimpan.jrxml";            
+            JasperReport jasperReport = JasperCompileManager.compileReport(filename);
+            jasperPrint = JasperFillManager.fillReport(jasperReport,hash, jrRS);
+            JRViewer aViewer = new JRViewer(jasperPrint);                  
+            JDialog viewer = new JDialog(); 	
+            viewer.setTitle(".: Data Simpan Pinjam :.");             
+            viewer.setAlwaysOnTop(true);
+            viewer.getContentPane().add(aViewer);                  
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();     
+            viewer.setBounds(0,0,screenSize.width, screenSize.height);
+            viewer.setVisible(true);              
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Laporan gak ada "+e);
+        }
+    }
+    private void DataPinjam(){
+        model=new Model();
+        Models models= new Models();
+        try {
+            java.sql.Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT a.*,b.* FROM data_pinjaman a JOIN data_anggota b ON a.No_anggota=b.No_anggota");
+            HashMap hash = new HashMap();
+            hash.put("tgl_sekarang",models.getToday());
+            //hash.put("d_sampai",sampai());
+            JasperPrint jasperPrint;       
+            JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);
+            String filename= System.getProperty("user.dir")+"/src/iReport/CetakDataPinjam.jrxml";            
+            JasperReport jasperReport = JasperCompileManager.compileReport(filename);
+            jasperPrint = JasperFillManager.fillReport(jasperReport,hash, jrRS);
+            JRViewer aViewer = new JRViewer(jasperPrint);                  
+            JDialog viewer = new JDialog(); 	
+            viewer.setTitle(".: Data Simpan Pinjam :.");             
+            viewer.setAlwaysOnTop(true);
+            viewer.getContentPane().add(aViewer);                  
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();     
+            viewer.setBounds(0,0,screenSize.width, screenSize.height);
+            viewer.setVisible(true);              
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Laporan gak ada "+e);
+        }
+    }
+    private void DataKoperasi(){
+        model=new Model();
+        Models models= new Models();
+        try {
+            java.sql.Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT a.*,b.*,c.* FROM data_anggota a JOIN data_pinjaman b ON a.No_anggota=b.No_anggota JOIN data_simpan c ON a.No_anggota=c.No_anggota");
+            HashMap hash = new HashMap();
+            hash.put("tgl_sekarang",models.getToday());
+            //hash.put("d_sampai",sampai());
+            JasperPrint jasperPrint;       
+            JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);
+            String filename= System.getProperty("user.dir")+"/src/iReport/DataKoperasi.jrxml";            
             JasperReport jasperReport = JasperCompileManager.compileReport(filename);
             jasperPrint = JasperFillManager.fillReport(jasperReport,hash, jrRS);
             JRViewer aViewer = new JRViewer(jasperPrint);                  

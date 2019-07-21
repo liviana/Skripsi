@@ -9,7 +9,7 @@ import Controller.Anggota_Controller;
 
 /**
  *
- * @author Muhamad Junaedi
+ * @author Liviana Febriyanti
  */
 public class TampilAnggota extends javax.swing.JFrame {
     Anggota_Controller cbt;
@@ -54,6 +54,11 @@ public class TampilAnggota extends javax.swing.JFrame {
                 "Nomor Anggota", "Nama Anggota", "TTL", "Jenis Kelamin", "Nomor Telpon", "Alamat", "Divisi"
             }
         ));
+        tblAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAnggotaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAnggota);
 
         btnTambah.setText("Tambah");
@@ -64,8 +69,18 @@ public class TampilAnggota extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +136,18 @@ public class TampilAnggota extends javax.swing.JFrame {
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         cbt.tambahAnggota();
     }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        cbt.editAnggota();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        cbt.hapusAnggota();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void tblAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAnggotaMouseClicked
+        cbt.TableClicked();
+    }//GEN-LAST:event_tblAnggotaMouseClicked
 
     /**
      * @param args the command line arguments

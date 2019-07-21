@@ -5,19 +5,23 @@
  */
 package View;
 
+import Controller.TampilPinjam_Controller;
+
 /**
  *
  * @author LIVIANA FEBRIYANTI
  */
 public class TampilPinjam extends javax.swing.JFrame {
-
+    TampilPinjam_Controller cbt;
     /**
      * Creates new form TampilPinjam
      */
     public TampilPinjam() {
         initComponents();
+        cbt=new TampilPinjam_Controller(this);
+        cbt.Table();
     }
-
+           
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,9 +59,14 @@ public class TampilPinjam extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Nomor Anggota", "Nama Anggota", "Total Angsuran", "Angsuran", "Angsuran Ke", "Sisa Angsuran"
+                "Nomor Anggota", "Nama Anggota", "Total Pinjaman", "Angsuran", "Angsuran Ke", "Sisa Angsuran"
             }
         ));
+        TblPinjam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TblPinjamMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TblPinjam);
 
         btnTambah.setText("Tambah");
@@ -68,8 +77,18 @@ public class TampilPinjam extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -121,12 +140,24 @@ public class TampilPinjam extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        
+        cbt.tambahPinjaman();
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
-       
+         this.dispose();
     }//GEN-LAST:event_btnKembaliActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        cbt.editPinjaman();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void TblPinjamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblPinjamMouseClicked
+        cbt.tableClicked();
+    }//GEN-LAST:event_TblPinjamMouseClicked
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        cbt.deleteData();
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,11 +195,11 @@ public class TampilPinjam extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TblPinjam;
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnHapus;
-    private javax.swing.JButton btnKembali;
-    private javax.swing.JButton btnTambah;
+    public javax.swing.JTable TblPinjam;
+    public javax.swing.JButton btnEdit;
+    public javax.swing.JButton btnHapus;
+    public javax.swing.JButton btnKembali;
+    public javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

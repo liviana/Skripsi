@@ -2,9 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c134c83c-726b-4f18-bba9-f55c2b30941b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="78"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="d_dari" class="java.lang.String"/>
 	<parameter name="d_sampai" class="java.lang.String"/>
+	<parameter name="tgl_sekarang" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT a.no_anggota,a.nm_anggota,b.kd_simpan,b.tgl_simpan,b.simpanan_wajib,b.simpanan_pokok,b.simpanan_sukarela,b.total FROM data_anggota a JOIN data_simpan b ON a.no_anggota=b.no_anggota where b.tgl_simpan  BETWEEN $P{d_dari} AND $P{d_sampai} ORDER BY b.kd_simpan asc]]>
 	</queryString>
@@ -197,7 +200,13 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="23" splitType="Stretch"/>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="397" y="0" width="158" height="20" uuid="819888fa-bde7-4191-b1ea-86543bde67b9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{tgl_sekarang}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

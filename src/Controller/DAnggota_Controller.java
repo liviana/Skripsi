@@ -74,16 +74,48 @@ public class DAnggota_Controller {
         String tgl = sdf.format(dtBaru);
         return tgl;
     }
-    public void checkAnggota(){
+    public void checkAnggota(int id){
         model=new Model();
         try {
             java.sql.Statement st= conn.createStatement();
             ResultSet rss= st.executeQuery(model.cariAnggota(anggota.tfnomor.getText()));
             if (rss.next()) {
-                JOptionPane.showMessageDialog(null,"No Anggota Telah Digunakan");
+                if (id>0) {
+                    InputData(id);
+                }else{
+                    JOptionPane.showMessageDialog(null,"No Anggota Telah Digunakan");
+                }
             }else{
-                SaveAnggota();
+                InputData(id);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void InputData(int id){
+        if (id>0) {
+            UpdateAnggota(id);
+        }else if(id<=0){
+            SaveAnggota();
+        }
+    }
+    public void UpdateAnggota(int id){
+        model=new Model();
+        try {
+            PreparedStatement ps = conn.prepareStatement(model.editAnggota(String.valueOf(id)));
+            ps.setString(1,anggota.tfnama.getText());
+            ps.setString(2,anggota.tfTTL.getText());
+            ps.setString(3,getTanggal());
+            ps.setString(4,getJK());
+            ps.setString(5,anggota.tfAlamat.getText());
+            ps.setString(6,anggota.tfTlp.getText());
+            ps.setString(7,anggota.tfDivisi.getText());
+            ps.setString(8,getTanggalSekarang());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Anggota Berhasil Terdaftar");
+            TampilAnggota tampil=new TampilAnggota();
+            tampil.setVisible(true);
+            anggota.dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,6 +138,24 @@ public class DAnggota_Controller {
             TampilAnggota tampil=new TampilAnggota();
             tampil.setVisible(true);
             anggota.dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void getDataEdit(String id){
+        model=new Model();
+        anggota.btnSimpan.setText("Update");
+        try {
+            java.sql.Statement st = conn.createStatement();
+            ResultSet rss = st.executeQuery(model.getEditAnggota(id));
+            if (rss.next()) {
+                anggota.tfnomor.setText(rss.getString("no_anggota"));
+                anggota.tfnama.setText(rss.getString("nm_anggota"));
+                anggota.tfTTL.setText(rss.getString("tempat_lahir"));
+                anggota.tfAlamat.setText(rss.getString("alamat"));
+                anggota.tfTlp.setText(rss.getString("no_tlp"));
+                anggota.tfDivisi.setText(rss.getString("divisi"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

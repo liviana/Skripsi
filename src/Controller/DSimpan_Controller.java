@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import Koneksi.*;
+import View.TampilSimpan;
 /**
  *
  * @author Muhamad Junaedi
@@ -39,8 +40,6 @@ public class DSimpan_Controller {
         return tgl;
     }
     //Constant
-    
-    
     
     //Public
     public void checkAnggota(){
@@ -72,7 +71,49 @@ public class DSimpan_Controller {
             simpan.tfTotal.setText(String.valueOf(total));
         }
     }
-    
+    public void InputData(int id){
+        if (id>0) {
+            UpdateSimpan(String.valueOf(id));
+        }else if(id<=0){
+            SaveSimpan();
+        }
+    }
+    public void UpdateSimpan(String  id){
+        model=new Model();
+        try {
+            PreparedStatement ps = conn.prepareStatement(model.editSimpan(id));
+            ps.setString(1,simpan.tfsimpokok.getText());
+            ps.setString(2,simpan.tfsimwajib.getText());
+            ps.setString(3,simpan.tfsimsukarela.getText());
+            ps.setString(4,simpan.tfTotal.getText());
+            ps.setString(5,simpan.tfnomor.getText());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Data Simpan Berhasil Terupdate");
+            TampilSimpan tampil=new TampilSimpan();
+            tampil.setVisible(true);
+            simpan.dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void editable(String kd_simpan){
+        simpan.btnSimpan.setText("Update");
+        model=new Model();
+        String sql = model.getEditSimpan(kd_simpan);
+        try {
+            java.sql.Statement st = conn.createStatement();
+            ResultSet rss = st.executeQuery(sql);
+            if (rss.next()) {
+                simpan.tfTotal.setText(rss.getString("total"));
+                simpan.tfnomor.setText(rss.getString("no_anggota"));
+                simpan.tfsimpokok.setText(rss.getString("simpanan_pokok"));
+                simpan.tfsimsukarela.setText(rss.getString("simpanan_sukarela"));
+                simpan.tfsimwajib.setText(rss.getString("simpanan_wajib"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void SaveSimpan(){
         model=new Model();
         try {
@@ -85,7 +126,7 @@ public class DSimpan_Controller {
             ps.setString(6,simpan.tfnomor.getText());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null,"Data Simpan Berhasil Terisi");
-            TampilAnggota tampil=new TampilAnggota();
+            TampilSimpan tampil=new TampilSimpan();
             tampil.setVisible(true);
             simpan.dispose();
         } catch (Exception e) {

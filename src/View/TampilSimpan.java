@@ -54,6 +54,11 @@ public class TampilSimpan extends javax.swing.JFrame {
                 "Nomor Anggota", "Nama Anggota", "Tanggal Simpan", "Simpanan Wajib", "Simpanan Pokok", "Simpanan Sukarela", "Total"
             }
         ));
+        tblSimpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSimpanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSimpan);
 
         btnTambah.setText("Tambah");
@@ -64,8 +69,18 @@ public class TampilSimpan extends javax.swing.JFrame {
         });
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +140,18 @@ public class TampilSimpan extends javax.swing.JFrame {
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         cbt.tambahSimpan();
     }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        cbt.editSimpanan();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        cbt.DeleteSimpan();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void tblSimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSimpanMouseClicked
+        cbt.tableClicked();
+    }//GEN-LAST:event_tblSimpanMouseClicked
 
     /**
      * @param args the command line arguments

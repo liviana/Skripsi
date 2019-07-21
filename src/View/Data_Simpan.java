@@ -14,12 +14,19 @@ import Controller.DSimpan_Controller;
 public class Data_Simpan extends javax.swing.JFrame {
 
     DSimpan_Controller cbt;
+    String ID = "0";
     /**
      * Creates new form Data_SImpan
      */
     public Data_Simpan() {
         initComponents();
         cbt=new DSimpan_Controller(this);
+    }
+    public Data_Simpan(String ID){
+        initComponents();
+        cbt=new DSimpan_Controller(this);
+        cbt.editable(ID);
+        this.ID=ID;
     }
 
     /**
@@ -64,6 +71,12 @@ public class Data_Simpan extends javax.swing.JFrame {
 
         jLabel8.setText("Simpanan Sukarela :");
 
+        tfsimsukarela.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfsimsukarelaFocusLost(evt);
+            }
+        });
+
         jLabel9.setText("Total :");
 
         tfTotal.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -106,11 +119,10 @@ public class Data_Simpan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfnomor, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tfsimpokok, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                        .addComponent(tfsimwajib)
-                        .addComponent(tfsimsukarela)
-                        .addComponent(tfTotal)))
+                    .addComponent(tfsimpokok, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                    .addComponent(tfsimwajib)
+                    .addComponent(tfsimsukarela)
+                    .addComponent(tfTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
@@ -162,7 +174,7 @@ public class Data_Simpan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKembaliActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-       cbt.SaveSimpan();
+       cbt.InputData(Integer.parseInt(ID));
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void tfTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTotalActionPerformed
@@ -176,6 +188,10 @@ public class Data_Simpan extends javax.swing.JFrame {
     private void tfnomorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfnomorFocusLost
         cbt.checkAnggota();
     }//GEN-LAST:event_tfnomorFocusLost
+
+    private void tfsimsukarelaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfsimsukarelaFocusLost
+        cbt.getTotal();
+    }//GEN-LAST:event_tfsimsukarelaFocusLost
 
     /**
      * @param args the command line arguments
@@ -215,7 +231,7 @@ public class Data_Simpan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKembali;
-    private javax.swing.JButton btnSimpan;
+    public javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;

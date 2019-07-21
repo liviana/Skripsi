@@ -10,6 +10,7 @@ import Model.Model;
 import View.Data_Anggota;
 import View.TampilAnggota;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ public class Anggota_Controller {
     Model model;
     DefaultTableModel tabModel;
     Connection conn = new Koneksi().connect();
+    String id;
     
     public Anggota_Controller(TampilAnggota tampil) {
         this.tampil = tampil;
@@ -34,6 +36,30 @@ public class Anggota_Controller {
         Data_Anggota anggota=new Data_Anggota();
         anggota.setVisible(true);
         tampil.dispose();
+    }
+    public void editAnggota(){
+        if (id != null) {
+            Data_Anggota anggota=new Data_Anggota(id);
+            anggota.setVisible(true);
+            tampil.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,"Silahkan Pilih Data Anggota");
+        }
+    }
+    public void hapusAnggota(){
+        model=new Model();
+        try {
+            PreparedStatement ps =conn.prepareStatement(model.deleteAnggota(id));
+            ps.executeUpdate();
+            dataTable();
+            JOptionPane.showMessageDialog(null,"Data Anggota berhasil Dihapus");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void TableClicked(){
+        int bar=tampil.tblAnggota.getSelectedRow();
+        id=String.valueOf(tabModel.getValueAt(bar,0));
     }
     //table
     public void dataTable(){

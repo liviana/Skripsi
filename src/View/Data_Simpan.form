@@ -35,12 +35,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="tfnomor" pref="385" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="tfsimpokok" pref="385" max="32767" attributes="0"/>
-                      <Component id="tfsimwajib" max="32767" attributes="0"/>
-                      <Component id="tfsimsukarela" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tfTotal" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="tfsimpokok" pref="385" max="32767" attributes="0"/>
+                  <Component id="tfsimwajib" max="32767" attributes="0"/>
+                  <Component id="tfsimsukarela" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tfTotal" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -145,6 +143,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfsimsukarela">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfsimsukarelaFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -170,6 +171,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSimpanActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnKembali">
       <Properties>

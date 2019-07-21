@@ -12,6 +12,7 @@ import View.Data_Simpan;
 import View.Login;
 import View.Main;
 import View.TampilAnggota;
+import View.TampilPinjam;
 import View.TampilSimpan;
 
 /**
@@ -37,6 +38,10 @@ public class Main_Controller {
     public void anggota(){
         TampilAnggota tampil= new TampilAnggota();
         tampil.setVisible(true);
+    }
+    public void Pinjam(){
+        TampilPinjam pinjam = new TampilPinjam();
+        pinjam.setVisible(true);
     }
     public void simpan(){
         TampilSimpan simpan= new TampilSimpan();

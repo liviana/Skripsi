@@ -199,7 +199,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_InputPinjamActionPerformed
 
     private void DataPinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataPinjamActionPerformed
-        // TODO add your handling code here:
+        cbt.Pinjam();
     }//GEN-LAST:event_DataPinjamActionPerformed
 
     /**
